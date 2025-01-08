@@ -6,7 +6,7 @@ import { useLoginMutation } from "../features/auth/authApi";
 
 export default function Login() {
   const [formData, setFormData] = useState({
-    email: "",
+    username: "",
     password: "",
   });
   const [error, setError] = useState("");
@@ -62,7 +62,7 @@ export default function Login() {
                 </label>
                 <input
                   id="email-address"
-                  name="email"
+                  name="username"
                   type="email"
                   autoComplete="email"
                   required

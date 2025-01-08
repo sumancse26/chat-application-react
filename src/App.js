@@ -10,9 +10,7 @@ import Register from "./pages/Register";
 function App() {
   const auth = useAuthChecking();
   console.log(auth);
-  return !auth ? (
-    <div>Loading...</div>
-  ) : (
+  return (
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />

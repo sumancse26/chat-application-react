@@ -3,12 +3,18 @@ import { apiSlice } from "../../api/apiSlice";
 export const messagesApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getMessages: builder.query({
-      query: (id) =>
-        `/messages?conversationId=${id}&_sort=timestamp&_order=desc&_page=1&_limit=5`,
+      query: (id) => `/api/message/${id}`,
     }),
     addMessage: builder.mutation({
       query: (data) => ({
-        url: "/messages",
+        url: "/api/message",
+        method: "POST",
+        body: data,
+      }),
+    }),
+    addMessageWithConversation: builder.mutation({
+      query: (data) => ({
+        url: "/api/add-message-with-conversation",
         method: "POST",
         body: data,
       }),
@@ -16,4 +22,8 @@ export const messagesApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetMessagesQuery, useAddMessageMutation } = messagesApi;
+export const {
+  useGetMessagesQuery,
+  useAddMessageMutation,
+  addMessageWithConversationMutation,
+} = messagesApi;

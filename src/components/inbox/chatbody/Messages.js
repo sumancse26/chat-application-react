@@ -9,10 +9,11 @@ export default function Messages({ messages = [] }) {
       <ul className="space-y-2">
         {messages
           .slice()
-          .sort((a, b) => a.timestamp - b.timestamp)
+          .sort((a, b) => a.updatedAt - b.updatedAt)
           .map((message, index) => {
-            const { message: lastMessage, id, sender } = message;
-            const justify = sender.email !== email ? "start" : "end";
+            console.log("message", message);
+            const { message: lastMessage, _id: id, sender } = message;
+            const justify = sender.email !== email ? "end" : "start";
             return <Message key={id} justify={justify} message={lastMessage} />;
           })}
       </ul>

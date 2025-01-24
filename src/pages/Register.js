@@ -10,6 +10,7 @@ export default function Register() {
     email: "",
     password: "",
     confirmPassword: "",
+    mobile: "",
     agree: false,
   });
   const [error, setError] = useState("");
@@ -45,6 +46,7 @@ export default function Register() {
     register({
       name: formData.name,
       email: formData.email,
+      mobile: formData.mobile,
       password: formData.password,
     });
   };
@@ -125,13 +127,29 @@ export default function Register() {
                 <input
                   id="confirmPassword"
                   name="confirmPassword"
-                  type="confirmPassword"
+                  type="password"
                   value={formData.confirmPassword}
                   onChange={(e) => inputChangeHandler(e)}
                   autoComplete="current-confirmPassword"
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-violet-500 focus:border-violet-500 focus:z-10 sm:text-sm"
-                  placeholder="confirmPassword"
+                  placeholder="Confirm Password"
+                />
+              </div>
+              <div>
+                <label htmlFor="confirmPassword" className="sr-only">
+                  Phone Number
+                </label>
+                <input
+                  id="phone"
+                  name="mobile"
+                  type="text"
+                  value={formData.mobile}
+                  onChange={(e) => inputChangeHandler(e)}
+                  autoComplete="current-phone"
+                  required
+                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-violet-500 focus:border-violet-500 focus:z-10 sm:text-sm"
+                  placeholder="Phone Number"
                 />
               </div>
             </div>

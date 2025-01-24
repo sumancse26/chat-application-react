@@ -11,9 +11,8 @@ export default function Messages({ messages = [] }) {
           .slice()
           .sort((a, b) => a.updatedAt - b.updatedAt)
           .map((message, index) => {
-            console.log("message", message);
             const { message: lastMessage, _id: id, sender } = message;
-            const justify = sender.email !== email ? "end" : "start";
+            const justify = sender.email !== email ? "start" : "end";
             return <Message key={id} justify={justify} message={lastMessage} />;
           })}
       </ul>

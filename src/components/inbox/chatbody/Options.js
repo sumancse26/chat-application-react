@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useEditConversationMutation } from "../../../features/conversation/conversationApi";
+// import { useSelector } from "react-redux";
+// import { useEditConversationMutation } from "../../../features/conversation/conversationApi";
+import { useAddMessageMutation } from "../../../features/messages/messagesApi";
 
 export default function Options({ info }) {
   const [message, setMessage] = useState("");
-  const { user: logedInUser } = useSelector((state) => state.auth);
-  const { email } = logedInUser;
+  // const { user: logedInUser } = useSelector((state) => state.auth);
+  // const { email } = logedInUser;
 
-  const [editConversation, { isSuccess }] = useEditConversationMutation();
+  const [addMessage, { isSuccess }] = useAddMessageMutation();
+  // const [editConversation, { isSuccess }] = useEditConversationMutation();
 
   useEffect(() => {
     if (isSuccess) {
@@ -15,21 +17,26 @@ export default function Options({ info }) {
     }
   }, [isSuccess]);
 
-  const participantUser =
-    info.receiver.email !== email ? info.receiver : info.sender;
+  // const participantUser =
+  //   info.receiver.email !== email ? info.receiver : info.sender;
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    editConversation({
-      id: info.conversationId,
-      sender: email,
-      data: {
-        participants: `${email}-${participantUser.email}`,
-        users: [logedInUser, participantUser],
-        message,
-        timestamp: new Date().getTime(),
-      },
-    });
+    const params = {
+      message: message,
+      attachment: null,
+      conversation_id: info.conversation_id,
+    };
+    addMessage(params);
+    // editConversation({
+    //   id: info.conversationId,
+    //   sender: email,
+    //   data: {
+    //     participants: `${email}-${participantUser.email}`,
+    //     users: [logedInUser, participantUser],
+    //     message,
+    //     timestamp: new Date().getTime(),
+    //   },
+    // });
   };
   return (
     <form

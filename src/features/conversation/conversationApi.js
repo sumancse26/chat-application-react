@@ -88,6 +88,14 @@ export const conversationApi = apiSlice.injectEndpoints({
         }
       },
     }),
+
+    addConversationWithMessage: builder.mutation({
+      query: (data) => ({
+        url: "/api/add-message-with-conversation",
+        method: "POST",
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -95,4 +103,5 @@ export const {
   useGetConversationsQuery,
   useAddConversationMutation,
   useEditConversationMutation,
+  useAddConversationWithMessageMutation,
 } = conversationApi;

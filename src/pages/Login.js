@@ -6,8 +6,8 @@ import { useLoginMutation } from "../features/auth/authApi";
 
 export default function Login() {
   const [formData, setFormData] = useState({
-    username: "suman@gmail.com",
-    password: "Ss123!@%23",
+    username: "",
+    password: "",
   });
   const [error, setError] = useState("");
 
@@ -65,7 +65,6 @@ export default function Login() {
                   name="username"
                   type="email"
                   autoComplete="email"
-                  value="suman@gmail.com"
                   required
                   onChange={(e) => inputHandler(e)}
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-violet-500 focus:border-violet-500 focus:z-10 sm:text-sm"
@@ -80,7 +79,6 @@ export default function Login() {
                   id="password"
                   name="password"
                   type="password"
-                  value="Ss123!@%23"
                   autoComplete="current-password"
                   required
                   onChange={(e) => inputHandler(e)}

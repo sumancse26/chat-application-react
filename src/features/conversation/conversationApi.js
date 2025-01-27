@@ -4,7 +4,7 @@ import { messagesApi } from "../messages/messagesApi";
 export const conversationApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getConversations: builder.query({
-      query: (email) => `/api/inbox`,
+      query: () => `/api/inbox`,
     }),
     getConversation: builder.query({
       query: () => `/api/inbox`,
@@ -48,7 +48,7 @@ export const conversationApi = apiSlice.injectEndpoints({
             "getConversations",
             arg.sender,
             (draft) => {
-              const draftConversation = draft.find((c) => c.id == arg.id);
+              const draftConversation = draft.find((c) => c.id === arg.id);
               draftConversation.message = arg.data.message;
               draftConversation.timestamp = arg.data.timestamp;
             }
@@ -95,6 +95,28 @@ export const conversationApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
+
+      onQueryStarted: async (arg, { queryFulfilled, dispatch }) => {
+        const res = await queryFulfilled;
+        console.log("ressss", res);
+        dispatch(
+          apiSlice.util.updateQueryData(
+            "getConversations",
+            undefined,
+            (draft) => {
+              const existingIndex = draft.conversations.findIndex(
+                (conversation) => conversation._id === res.data.conversation._id
+              );
+
+              if (existingIndex !== -1) {
+                draft.conversations[existingIndex] = res.data.conversation;
+              } else {
+                draft.conversations.push(res.data.conversation);
+              }
+            }
+          )
+        );
+      },
     }),
   }),
 });

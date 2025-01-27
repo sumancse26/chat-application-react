@@ -35,7 +35,7 @@ export default function ChatItems() {
     content = <li>No conversation found</li>;
   } else if (!isLoading && !isError && data?.conversations?.length > 0) {
     content = data.conversations.map((conversation) => {
-      const { last_message, last_updated, _id } = conversation;
+      const { last_message, updatedAt, _id } = conversation;
       const { name, email: partnerEmail } = getPartnerInfo(conversation, email);
       return (
         <li key={_id} onClick={() => getConversationHandler(_id, conversation)}>
@@ -43,7 +43,7 @@ export default function ChatItems() {
             avatar={gravatarUrl(partnerEmail, { size: 80 })}
             name={name}
             lastMessage={last_message}
-            lastTime={momemt(last_updated).fromNow()}
+            lastTime={momemt(updatedAt).fromNow()}
           />
         </li>
       );

@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
 import { useAddConversationWithMessageMutation } from "../../features/conversation/conversationApi";
 
 export default function Modal({ open, control }) {
@@ -8,6 +9,15 @@ export default function Modal({ open, control }) {
 
   const [addConversationWithMessage, { isSuccess: isAddMessageSuccess }] =
     useAddConversationWithMessageMutation();
+
+  useEffect(() => {
+    if (isAddMessageSuccess) {
+      setTo("");
+      setMessage("");
+      setSending(false);
+      control(true);
+    }
+  }, [isAddMessageSuccess, setTo, setMessage, setSending, control]);
 
   // const debounceHandler = (handler, delay) => {
   //   let timeoutId;
@@ -26,18 +36,19 @@ export default function Modal({ open, control }) {
   // };
   // const handleSearch = debounceHandler(doSearch, 500);
 
-  const handlelSubmit = (e) => {
+  const handlelSubmit = async (e) => {
     e.preventDefault();
 
     setSending(true);
-    addConversationWithMessage({
-      email: to,
-      message,
-    });
-    setTo("");
-    setMessage("");
-    setSending(false);
-    control(false);
+    try {
+      addConversationWithMessage({
+        email: to,
+        message,
+      });
+    } catch (error) {
+      setSending(false);
+      console.log(error);
+    }
   };
   return (
     open && (

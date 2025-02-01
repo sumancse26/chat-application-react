@@ -1,10 +1,20 @@
-// import { useNavigate } from "react-router-dom";
-import { Navigate } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuthChecking } from "../hooks/useAuthChecking";
 
-const PrivateRoute = ({ children }) => {
-  const auth = useAuth();
-  return !auth ? children : <Navigate to="/inbox" />;
+const PublicRoute = ({ children }) => {
+  const auth = useAuthChecking();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (auth) {
+      navigate("/inbox");
+    }
+  }, [auth, navigate]);
+
+  if (auth) return null;
+
+  return children;
 };
 
-export default PrivateRoute;
+export default PublicRoute;

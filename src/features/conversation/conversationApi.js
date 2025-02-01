@@ -98,7 +98,7 @@ export const conversationApi = apiSlice.injectEndpoints({
 
       onQueryStarted: async (arg, { queryFulfilled, dispatch }) => {
         const res = await queryFulfilled;
-        console.log("ressss", res);
+
         dispatch(
           apiSlice.util.updateQueryData(
             "getConversations",

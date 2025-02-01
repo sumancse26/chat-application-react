@@ -1,5 +1,6 @@
 import gravatarUrl from "gravatar-url";
 import momemt from "moment";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useGetConversationsQuery } from "../../features/conversation/conversationApi";
@@ -12,9 +13,18 @@ export default function ChatItems() {
   const { user } = useSelector((state) => state.auth);
 
   const { email } = user;
-  const { data, isLoading, isError } = useGetConversationsQuery();
+  const { data, isLoading, isError, refetch } = useGetConversationsQuery(
+    undefined,
+    {
+      refetchOnMountOrArgChange: true,
+    }
+  );
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    refetch();
+  }, [email, refetch]);
 
   const getConversationHandler = (id, conversation) => {
     navigate(`/inbox/${id}`);

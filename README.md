@@ -1,9 +1,3 @@
-[![Youtube][youtube-shield]][youtube-url]
-[![Facebook][facebook-shield]][facebook-group-url]
-
-<!-- PROJECT LOGO -->
-<br />
-
 # Project Plan - Chat Application with RTK Query
 
 ## Requirement Analysis
@@ -38,31 +32,6 @@
 8. list messages by conversation id
 9. send message (insert messages into messages table)
 
-<!-- TABLE OF CONTENTS -->
-
-## ![tableOfContent][tableofcontent-shield] Table of Contents
-
-| HTML TEMPLATE                            | SERVER TEMPLATE                              | CODE RUN                   | CONTACT                    |
-| ---------------------------------------- | -------------------------------------------- | -------------------------- | -------------------------- |
-| [Get HTML template](#-get-html-template) | [Get SERVER template](#-get-server-template) | [How to run](#-how-to-run) | [Contact us](#-contact-us) |
-
-<br>
-<!-- GET HTML TEMPLATE -->
-
-## ![htmlIcon][htmlicon-shield] Get HTML Template
-
-You can find the raw HTML template of the Chat Application with RTK Query from the "html_template" folder.
-
-<!-- GET SERVER TEMPLATE -->
-
-## ![serverIcon][servericon-shield] Get SERVER Template
-
-You can find the raw SERVER template of the Chat Application with RTK Query from the "server" folder.
-
-<!-- HOW TO RUN -->
-
-## ![rocketIcon][rocketicon-shield] How to run
-
 Please follow the below instructions to run this branch in your machine:
 
 1. Login to the GitHub account on which you have been granted access to this repository. If you have purchased the course but didn't get the access to this repository, please contact our support team. You will find contact details below.
@@ -86,22 +55,5 @@ Please follow the below instructions to run this branch in your machine:
    npm start
    ```
 6. Your app should be available in http://localhost:3000
-
-<br>
-
-Please follow the below instructions to run server in your machine:
-
-1. Go to the server directory
-   ```sh
-   cd server
-   ```
-2. Install dependencies
-   ```sh
-   npm i
-   ```
-3. Start the server
-   ```sh
-   npm start
-   ```
 
 <br>

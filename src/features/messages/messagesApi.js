@@ -38,7 +38,6 @@ export const messagesApi = apiSlice.injectEndpoints({
               "getMessages",
               res.data.conversation_id,
               (draftMessage) => {
-                console.log("draftMessage", draftMessage);
                 if (!Array.isArray(draftMessage.messages)) return;
 
                 draftMessage.messages.push({

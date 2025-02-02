@@ -1,10 +1,55 @@
+import { io } from "socket.io-client";
 import { apiSlice } from "../../api/apiSlice";
 import { messagesApi } from "../messages/messagesApi";
+
+const socket = io(process.env.REACT_APP_API_URL, {
+  transports: ["websocket"],
+  reconnectionDelayMax: 1000,
+  reconnection: true,
+  reconnectionAttempts: 10,
+  agent: false,
+  upgrade: false,
+  rejectUnauthorized: false,
+});
 
 export const conversationApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getConversations: builder.query({
       query: () => `/api/inbox`,
+      async onCacheEntryAdded(
+        arg,
+        { updateCachedData, cacheDataLoaded, cacheEntryRemoved }
+      ) {
+        // const socket = io(process.env.REACT_APP_API_URL, {
+        //   transports: ["websocket"],
+        //   reconnectionDelayMax: 1000,
+        //   reconnection: true,
+        //   reconnectionAttempts: 10,
+        //   agent: false,
+        //   upgrade: false,
+        //   rejectUnauthorized: false,
+        // });
+
+        try {
+          await cacheDataLoaded;
+
+          // Listen for new conversation updates
+          const handleConversationUpdate = (data) => {
+            console.log("socket data", data);
+            updateCachedData((draft) => {
+              draft.push(data); // Update the Redux cache with new data
+            });
+          };
+
+          socket.on("conversation", handleConversationUpdate);
+
+          // Cleanup socket on unmount
+          await cacheEntryRemoved;
+          socket.disconnect("conversation", handleConversationUpdate);
+        } catch (e) {
+          console.log(e.message);
+        }
+      },
     }),
     getConversation: builder.query({
       query: () => `/api/inbox`,
